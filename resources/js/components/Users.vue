@@ -25,9 +25,9 @@
                   </tr>
                   <tr v-for="user in users" :key="user.id">
                     <td>{{user.id}}</td>
-                    <td>{{user.name | uptext}}</td>
+                    <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.type}}</td>
+                    <td>{{user.type | upText}}</td>
                     <td>{{user.created_at | myDate}}</td>
                     <td>
                         <a href="#">
@@ -140,7 +140,9 @@ Vue.component(AlertError.name, AlertError)
                 axios.get("api/user").then(({data})=>(this.users = data.data));
             },
             createUser(){
-               this.form.post('api/user'); 
+                this.$Progress.start();
+                this.form.post('api/user'); 
+                this.$Progress.finish();
             }
         },
         created() {
