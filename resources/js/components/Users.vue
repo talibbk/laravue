@@ -155,6 +155,7 @@ Vue.component(AlertError.name, AlertError)
         },
         created() {
             this.loadUsers();
+            setInterval(() => this.loadUsers(),3000);
         }
     }
 </script>

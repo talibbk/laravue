@@ -2036,7 +2036,12 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
     }
   },
   created: function created() {
+    var _this2 = this;
+
     this.loadUsers();
+    setInterval(function () {
+      return _this2.loadUsers();
+    }, 3000);
   }
 });
 
