@@ -19,6 +19,18 @@ Vue.component(AlertError.name,AlertError)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+import swal from 'sweetalert2'
+window.swal = swal;
+
+const toast = swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
+window.toast = toast;
+
 import VueProgressBar from 'vue-progressbar'
 
 Vue.use(VueProgressBar, {
