@@ -10,7 +10,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 import moment from 'moment';
 
-import { Form,HasError,AlertError} from 'vform';
+import { Form,HasError,AlertError} from 'vform'
 
 window.form = Form;
 Vue.component(HasError.name,HasError)
@@ -70,6 +70,8 @@ Vue.filter('myDate',function(created){
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+window.Fire = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
