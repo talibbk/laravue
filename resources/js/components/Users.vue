@@ -130,6 +130,7 @@ Vue.component(AlertError.name, AlertError)
                 editMode:false,
                 users:{},
                 form: new Form({
+                    id:'',
                     name :  '',
                     email : '',
                     password : '',
@@ -140,8 +141,23 @@ Vue.component(AlertError.name, AlertError)
             }
         },   
         methods:{
+            
             updateUser(){
-
+                this.$Progress.start();
+                this.form.put('api/user/'+this.form.id)
+                .then(() => {
+                    $('#addNew').modal('hide');
+                    swal.fire(
+                        'Updated!',
+                        'Your information has been Updated.',
+                        'success'
+                        )
+                        this.$Progress.finish();
+                        Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
             },
             editModal(user){
                 this.editMode = true,
@@ -167,6 +183,7 @@ Vue.component(AlertError.name, AlertError)
 
                         //send req to server
                         if(result.value){
+                            Fire.$emit('AfterCreate');
                             this.form.delete('api/user/'+id).then(()=>{
                                 if (result.value) {
                                 swal.fire(
@@ -176,6 +193,7 @@ Vue.component(AlertError.name, AlertError)
                                 )
                                 }
                             }).catch(()=> {
+                                this.$Progress.fail();
                                 swal.fire("Failed!","There was something wrong.","warning"); 
                             });
                         }       
@@ -200,7 +218,7 @@ Vue.component(AlertError.name, AlertError)
                     this.$Progress.finish();
                     })
                 .catch(() => {
-
+                    this.$Progress.fail(); 
                 })
             }
         },
