@@ -168,7 +168,6 @@ Vue.component(AlertError.name, AlertError)
         methods:{
             updateProfile(e){
                 let file = e.target.files[0];
-                console.log(file);
                 let reader = new FileReader();
                 reader.onloaded = (file) => {
                     //console.log('RESULT',reader.result)
