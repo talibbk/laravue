@@ -111,13 +111,7 @@
                                     <label for="password" class="col-sm-12 control-label">Password (leave empty if not changing)</label>
 
                                     <div class="col-sm-12">
-                                    <input type="password"
-                                        v-model="form.password"
-                                        class="form-control"
-                                        id="password"
-                                        placeholder="Password"
-                                        :class="{ 'is-invalid': form.errors.has('password') }"
-                                    >
+                                    <input type="password" v-model="form.password"  class="form-control" id="password" placeholder="Password" :class="{ 'is-invalid': form.errors.has('password') }">
                                      <has-error :form="form" field="password"></has-error>
                                     </div>
                                 </div>
@@ -166,11 +160,32 @@ Vue.component(AlertError.name, AlertError)
             console.log('Component mounted.')
         },
         methods:{
+            updateInfo(){
+                this.$Progress.start();
+                
+                this.form.put('api/profile/').then(() => {
+
+                    this.$Progress.finish();
+                }).catch(() => {
+
+                    this.$Progress.fail();
+                });
+            },   
+
             updateProfile(e){
                 let file = e.target.files[0];
                 let reader = new FileReader();
-                reader.onloaded = (file) => {
-                    //console.log('RESULT',reader.result)
+               
+                let limit = 1024 * 1024 * 2;
+                if(file['size'] > limit){
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You are uploading a large file',
+                    })
+                    return false;
+                }
+                reader.onloadend = (file) => {
                     this.form.photo = reader.result;
                 }
                 reader.readAsDataURL(file);
@@ -181,6 +196,6 @@ Vue.component(AlertError.name, AlertError)
             axios.get("api/profile")
             .then(({data})=>(this.form.fill(data)));
         }
-    }
+        }
 
 </script>
