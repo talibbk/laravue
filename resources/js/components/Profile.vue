@@ -21,7 +21,7 @@
                     <h5 class="widget-user-desc">{{this.form.type}}</h5>
                 </div>
                 <div class="widget-user-image">
-                   
+                    <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar"> 
                 </div>
                 <div class="card-footer">
                     <div class="row">
@@ -160,6 +160,11 @@ Vue.component(AlertError.name, AlertError)
             console.log('Component mounted.')
         },
         methods:{
+
+            getProfilePhoto(){
+                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/" + this.form.photo;
+                return photo;
+            },
             updateInfo(){
                 this.$Progress.start();
                 
@@ -185,6 +190,10 @@ Vue.component(AlertError.name, AlertError)
                     })
                     return false;
                 }
+                if(this.form.password == ""){
+                    this.form.password = undefined;
+                }
+
                 reader.onloadend = (file) => {
                     this.form.photo = reader.result;
                 }

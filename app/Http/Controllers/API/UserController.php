@@ -21,8 +21,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return User::latest()->paginate(10);
+    {   
+        $this->authorize('isAdmin');
+        return User::latest()->paginate(20);
     }
 
     /**
@@ -71,8 +72,10 @@ class UserController extends Controller
         $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-            'password' => 'sometimes|nullable|required|min:6'
+            'password' => 'nullable|min:6'
         ]);
+
+        echo "aaa";
 
 
         $currentPhoto = $user->photo;
@@ -83,11 +86,16 @@ class UserController extends Controller
             $request->merge(['photo' => $name]);
             
         }
-        
+
+        $userPhoto= public_path('img/profile/').$currentPhoto;
+        if(file_exists($userPhoto)){
+            @unlink($userPhoto);
+        }
+
         if(!empty($request->password)){
             $request->merge(['password' => Hash::make($request['password'])]);
         }
-        
+
         $user->update($request->all());
         return ['message' => "Success"];
     }
@@ -106,7 +114,7 @@ class UserController extends Controller
         $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
-            'password' => 'sometimes|min:6'
+            'password' => 'sometimes|required|min:6'
         ]);
 
         $user->update($request->all());
@@ -121,7 +129,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
         
         $user -> delete();
