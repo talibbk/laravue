@@ -100,6 +100,11 @@ Vue.component(
   require('./components/passport/PersonalAccessTokens.vue').default
 );
 
+Vue.component(
+  'not-found',
+  require('./components/NotFound.vue')
+);
+
 const app = new Vue({
     el: '#app',
     router
