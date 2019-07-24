@@ -46,7 +46,9 @@
             </div>
             <!-- /.card -->
           </div>
-
+            <div v-if="!$gate.isAdmin()">
+                <not-found></not-found>
+            </div>
                   <!-- Modal -->
             <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -120,7 +122,7 @@
 
 <script>
 import { Form, HasError, AlertError } from 'vform'
-
+import NotFound from './NotFound'
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
@@ -230,6 +232,9 @@ Vue.component(AlertError.name, AlertError)
                 this.loadUsers();
             })
             //setInterval(() => this.loadUsers(),3000);
+        },
+        components:{
+            'not-found' : NotFound
         }
     }
 </script>

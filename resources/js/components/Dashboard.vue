@@ -1,17 +1,21 @@
+
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
                 <not-found></not-found>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
+import NotFound from './NotFound'
+
     export default {
         mounted() {
             console.log('Component mounted.')
-        }
+        },
+    components:{
+        'not-found':NotFound
+    }
     }
 </script>

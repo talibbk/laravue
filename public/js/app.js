@@ -1780,6 +1780,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotFound__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotFound */ "./resources/js/components/NotFound.vue");
 //
 //
 //
@@ -1789,10 +1790,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  components: {
+    'not-found': _NotFound__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -1869,6 +1873,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2121,6 +2126,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _NotFound__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotFound */ "./resources/js/components/NotFound.vue");
 //
 //
 //
@@ -2241,6 +2247,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_0__["HasError"]);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"]);
@@ -2348,6 +2357,9 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
     Fire.$on('AfterCreate', function () {
       _this5.loadUsers();
     }); //setInterval(() => this.loadUsers(),3000);
+  },
+  components: {
+    'not-found': _NotFound__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -60579,9 +60591,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [_c("not-found")], 1)
-    ])
+    _c(
+      "div",
+      { staticClass: "row justify-content-center" },
+      [_c("not-found")],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -60695,6 +60710,8 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8 mt-4" }, [
+        _c("h3", [_vm._v("Not Found What You Are Looking For")]),
+        _vm._v(" "),
         _c(
           "svg",
           {
@@ -61693,6 +61710,8 @@ var render = function() {
           ])
         ])
       : _vm._e(),
+    _vm._v(" "),
+    !_vm.$gate.isAdmin() ? _c("div", [_c("not-found")], 1) : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
